@@ -13,9 +13,15 @@ typedef enum
 	right
 }CarDirection_Typedef;
 
+typedef struct
+{
+	CarDirection_Typedef car_dir;
+	uint16_t power_voltage;
+}Car_TypeDef;
+
+extern Car_TypeDef car;
+
 void car_stop(void);
 void car_run(CarDirection_Typedef direction, uint16_t speed);
 
 #endif /* __CAR_H */
-
-

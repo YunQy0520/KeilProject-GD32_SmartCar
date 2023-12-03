@@ -40,6 +40,8 @@ OF SUCH DAMAGE.
 #include "systick.h"
 #include "gpio.h"
 #include "key.h"
+#include "car.h"
+#include "communication.h"
 
 /*!
     \brief    this function handles NMI exception
@@ -189,6 +191,7 @@ void TIMER2_IRQHandler(void)
 	}
 }
 
+volatile uint8_t flag_tim5_1ms = 0;
 uint16_t tim5_1s_cnt = 0;
 
 /*!
@@ -203,6 +206,8 @@ void TIMER5_DAC_IRQHandler(void)
 		/* clear TIMER interrupt flag */
 		timer_interrupt_flag_clear(TIMER5, TIMER_INT_FLAG_UP);
 		
+		flag_tim5_1ms = 1;
+		
 		Key_Scan(&key1);
 		Key_Scan(&key2);
 		
@@ -212,6 +217,25 @@ void TIMER5_DAC_IRQHandler(void)
 			/* Clear the cnt */
 			tim5_1s_cnt = 0;
 			LED1_TOGGLE();
+			if (car.power_voltage < 66) {
+				LEDS_TOGGLE();
+			} else {
+				LEDS(0);
+			}
 		}
+	}
+}
+
+/*!
+    \brief      this function handles UART6 interrupt request
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void UART6_IRQHandler(void)
+{
+	if (usart_interrupt_flag_get(UART6, USART_INT_FLAG_RBNE) != RESET) {
+		/* clear RBNE IDLE flag */
+		Framing(usart_data_receive(UART6));
 	}
 }

@@ -5,11 +5,13 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+Car_TypeDef car;
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  The car stop.
+  * @brief  Stop the car.
   * @param  None
   * @retval None
   */
@@ -39,6 +41,11 @@ void car_stop(void)
   */
 void car_run(CarDirection_Typedef direction, uint16_t speed)
 {
+	/* Avoid the value of speed out of duty range */
+	if (speed > 10000)
+		speed = 10000;
+	
+	/* Judge che direction */
 	switch (direction) {
 		case front:
 			/* Right front wheel */

@@ -87,7 +87,7 @@ void timer1_config(uint16_t psc, uint16_t arr)
 	timer_channel_output_shadow_config(TIMER1, TIMER_CH_3, TIMER_OC_SHADOW_DISABLE);
 
 	/* auto-reload preload enable */
-	timer_auto_reload_shadow_enable(TIMER1);
+//	timer_auto_reload_shadow_enable(TIMER1);
 	
 	/* TIMER1 update interrupt enable */
 	timer_interrupt_disable(TIMER1, TIMER_INT_UP);
@@ -226,8 +226,8 @@ void timer5_config(uint16_t psc, uint16_t arr)
 	timer_enable(TIMER5);
 }
 
-void pwm_led4_breath(void)
-{
+//void pwm_led4_breath(void)
+//{
 //	static uint8_t direct = 0; //??
 //	static uint16_t value = 0; //???
 
@@ -244,6 +244,6 @@ void pwm_led4_breath(void)
 //					direct = 0;
 //	}
 //	timer_channel_output_pulse_value_config(PWM_LED4_TIMER, PWM_LED4_TIMER_CHANNEL, value); // ????????????
-}
+//}
 
 /***** (C) YUNQY 2023 GD32 *****END OF FILE*****/

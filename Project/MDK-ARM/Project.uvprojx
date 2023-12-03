@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>GD32F470ZGT6</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pCCUsed>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F470</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Firmware\CMSIS;..\..\Firmware\CMSIS\GD\GD32F4xx\Include;..\..\Firmware\GD32F4xx_standard_peripheral\Include;..\..\Project;..\..\Peripheral\inc;..\..\Hardware\inc;..\..\Application\inc</IncludePath>
+              <IncludePath>..\..\Firmware\CMSIS;..\..\Firmware\CMSIS\GD\GD32F4xx\Include;..\..\Firmware\GD32F4xx_standard_peripheral\Include;..\..\Project;..\..\Peripheral\inc;..\..\Hardware\inc;..\..\Software\inc;..\..\Application\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -584,6 +584,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\Peripheral\src\gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Peripheral\src\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Peripheral\src\usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -593,6 +603,21 @@
               <FileName>key.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Hardware\src\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>hcsr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Hardware\src\hcsr04.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Software</GroupName>
+          <Files>
+            <File>
+              <FileName>communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Software\src\communication.c</FilePath>
             </File>
           </Files>
         </Group>
