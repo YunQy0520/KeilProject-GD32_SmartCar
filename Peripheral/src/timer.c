@@ -226,6 +226,44 @@ void timer5_config(uint16_t psc, uint16_t arr)
 	timer_enable(TIMER5);
 }
 
+
+/**
+  * @brief  Configures the TIM6.
+  * @param  psc, arr.
+  * @retval None
+  */
+void timer6_config(uint16_t psc, uint16_t arr)
+{
+	timer_parameter_struct timer_initpara;
+	
+	/* system clocks configuration */
+	rcu_periph_clock_enable(RCU_TIMER6);
+	rcu_timer_clock_prescaler_config(RCU_TIMER_PSC_MUL4); // CK_TIMERx = 4 * CK_APB1 = 4 * 50 M = 200MHZ
+	
+	/* NVIC configuration */
+	nvic_irq_enable(TIMER6_IRQn, 3, 2);
+	
+	timer_deinit(TIMER6);
+	
+	/* TIMER6 configuration */
+	timer_initpara.prescaler         = psc; // Prescale 0 ~ 65535  psc_clk = CK_TIMER / psc
+	timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
+	timer_initpara.counterdirection  = TIMER_COUNTER_UP;
+	timer_initpara.period            = arr;
+	timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
+	timer_initpara.repetitioncounter = 0;
+	timer_init(TIMER6, &timer_initpara);
+	
+	/* auto-reload preload enable */
+	timer_auto_reload_shadow_enable(TIMER6);
+	
+	/* TIMER6 update interrupt enable */
+	timer_interrupt_enable(TIMER6, TIMER_INT_UP);
+	
+	/* TIMER6 counter enable */
+	timer_disable(TIMER6);
+}
+
 //void pwm_led4_breath(void)
 //{
 //	static uint8_t direct = 0; //??

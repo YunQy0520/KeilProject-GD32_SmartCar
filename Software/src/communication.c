@@ -38,24 +38,30 @@ unsigned char Sum_Check(const unsigned char *dat, unsigned char len)
   */
 void UnpackFrame(unsigned char *frame)
 {
-	switch (frame[2]) {
-		case 0xA0:
-			car_stop();
-			break;
-		case 0xA1:
-			car_run(front, 4999);
-			break;
-		case 0xA2:
-			car_run(back, 4999);
-			break;
-		case 0xA3:
-			car_run(left, 4999);
-			break;
-		case 0xA4:
-			car_run(right, 4999);
-			break;
-		default:
-			break;
+	if (car.mode == 2) {
+		switch (frame[2]) {
+			case 0xA0:
+				car_stop();
+				break;
+			case 0xA1:
+				car_stop();
+				car_run(front, 4999);
+				break;
+			case 0xA2:
+				car_stop();
+				car_run(back, 4999);
+				break;
+			case 0xA3:
+				car_stop();
+				car_run(left, 4999);
+				break;
+			case 0xA4:
+				car_stop();
+				car_run(right, 4999);
+				break;
+			default:
+				break;
+		}
 	}
 }
 

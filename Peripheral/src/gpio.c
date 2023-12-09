@@ -42,6 +42,8 @@ void gpio_config()
 	gpio_mode_set(GPIOG, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, LED3_PIN | LEDR_PIN);
 	gpio_output_options_set(GPIOG, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, LED3_PIN | LEDR_PIN);
 	
+	LEDL(0);
+	LEDR(0);
 	BEEP(0);
 }
 

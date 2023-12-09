@@ -9,5 +9,6 @@
 void timer1_config(uint16_t psc, uint16_t arr);
 void timer2_config(uint16_t psc, uint16_t arr);
 void timer5_config(uint16_t psc, uint16_t arr);
+void timer6_config(uint16_t psc, uint16_t arr);
 
 #endif

@@ -191,8 +191,8 @@ void TIMER2_IRQHandler(void)
 	}
 }
 
-volatile uint8_t flag_tim5_1ms = 0;
-uint16_t tim5_1s_cnt = 0;
+volatile uint8_t flag_tim5_1ms = 0, flag_tim5_100ms = 0;
+uint16_t tim5_100ms_cnt = 0, tim5_1s_cnt = 0;
 
 /*!
     \brief      this function handles TIMER5 interrupt request.
@@ -211,6 +211,15 @@ void TIMER5_DAC_IRQHandler(void)
 		Key_Scan(&key1);
 		Key_Scan(&key2);
 		
+		if (tim5_100ms_cnt < 100 - 1) {
+			tim5_100ms_cnt++;
+		} else {
+			/* Clear the cnt */
+			tim5_100ms_cnt = 0;
+			/* Set the flag */
+			flag_tim5_100ms = 1;
+		}
+		
 		if (tim5_1s_cnt < 1000 - 1) {
 			tim5_1s_cnt++;
 		} else {
@@ -226,6 +235,55 @@ void TIMER5_DAC_IRQHandler(void)
 	}
 }
 
+//uint16_t tim6_cnt = 0;
+
+/*!
+    \brief      this function handles TIMER6 interrupt request.
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+//void TIMER6_IRQHandler(void)
+//{
+//	if (timer_interrupt_flag_get(TIMER6, TIMER_INT_FLAG_UP) == SET) {
+//		/* clear TIMER interrupt flag */
+//		timer_interrupt_flag_clear(TIMER6, TIMER_INT_FLAG_UP);
+//		tim6_cnt++;
+//	}
+//}
+
+uint8_t usart0_rx_byte = 0;
+
+/*!
+    \brief      this function handles USART0 interrupt request
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void USART0_IRQHandler(void)
+{
+	if (usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE) != RESET) {
+		/* clear RBNE IDLE flag */
+		usart0_rx_byte = usart_data_receive(USART0);
+	}
+}
+
+/*!
+    \brief      this function handles external lines 10 to 15 interrupt request
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+//void EXTI10_15_IRQHandler(void)
+//{
+//	if (RESET != exti_interrupt_flag_get(EXTI_10)) {
+
+//		exti_interrupt_flag_clear(EXTI_10);
+//	}
+//}
+
+uint8_t uart6_rx_byte = 0;
+
 /*!
     \brief      this function handles UART6 interrupt request
     \param[in]  none
@@ -236,6 +294,8 @@ void UART6_IRQHandler(void)
 {
 	if (usart_interrupt_flag_get(UART6, USART_INT_FLAG_RBNE) != RESET) {
 		/* clear RBNE IDLE flag */
-		Framing(usart_data_receive(UART6));
+		uart6_rx_byte = usart_data_receive(UART6);
+		usart_data_transmit(USART0, uart6_rx_byte);
+//		Framing(uart6_rx_byte);
 	}
 }

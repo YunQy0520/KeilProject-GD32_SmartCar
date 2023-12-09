@@ -15,7 +15,8 @@ typedef enum
 
 typedef struct
 {
-	CarDirection_Typedef car_dir;
+	uint8_t mode;
+	CarDirection_Typedef cardir;
 	uint16_t power_voltage;
 }Car_TypeDef;
 
